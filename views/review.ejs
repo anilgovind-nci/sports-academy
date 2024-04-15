@@ -1,0 +1,164 @@
+<%- include partials/headerwrk.ejs %>
+
+  <!DOCTYPE html>
+  <html data-bs-theme="light" lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Blockchain Rating Page</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
+  </head>
+
+  <body>
+    <section class="newsletter-subscribe py-4 py-xl-5">
+      <div class="container">
+        <div class="row mb-2">
+          <div class="col-md-8 col-xl-6 text-center mx-auto">
+            <h2 class="display-6 fw-bold">Please Provide your Valuable Rating</h2>
+            <h4 id = "sports-rating" class="text-muted"></h4>
+            <p>MetaMask Value: <%= address %></p> 
+            <p class="text-muted">Its important for us to improve, a honest response means a lot to us</p>
+            <div data-bss-parallax-bg="true" id="review-sports-image"
+              style="height: 350px;background-image: url(assets/img/football-review.jpg); background-position: center;background-size: cover;">
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center flex-wrap">
+          <div class="mb-3" class="d-flex justify-content-center flex-wrap">
+            <input id="sports-user-rating-input" type="number" name="rating" 
+            placeholder="Rating" min="1" max="5" value="1">
+          </div>
+          <div class="mb-3"><button class="btn btn-primary ms-2" onclick="setSportsRating()"
+              type="submit">setSportsRating</button></div>
+        </div>
+      </div>
+    </section>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script> // the below script code is convention in web3 in forming the communication with Web
+    const currentUrl = window.location.href;
+    // Create a URL object
+    const url = new URL(currentUrl);
+    const sports = url.searchParams.get("sports");
+    const img = url.searchParams.get("img");
+    const div = document.getElementById("review-sports-image");
+    const imgPath = `url(assets/img/${img})`;
+    div.style.backgroundImage = imgPath;
+
+
+      let account;
+      const connectMetamask = async () => {
+        if (window.ethereum !== "undefined") {
+          const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+          account = accounts[0];
+          console.log(account)
+          // document.getElementById("userArea").innerHTML = `User Account: ${account}`;
+        }
+      }
+
+      const connectContract = async () => {
+        const ABI = [
+          {
+            "inputs": [
+              {
+                "internalType": "string",
+                "name": "_sport",
+                "type": "string"
+              },
+              {
+                "internalType": "uint256",
+                "name": "_rating",
+                "type": "uint256"
+              }
+            ],
+            "name": "setSportRating",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+          },
+          {
+            "inputs": [
+              {
+                "internalType": "string",
+                "name": "_sport",
+                "type": "string"
+              }
+            ],
+            "name": "getSportAverageRating",
+            "outputs": [
+              {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+              }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+          },
+          {
+            "inputs": [
+              {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+              }
+            ],
+            "name": "sportRatings",
+            "outputs": [
+              {
+                "internalType": "uint256",
+                "name": "overallRatingTotal",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "alreadyRatedStudentsCount",
+                "type": "uint256"
+              }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+          }
+        ]
+
+        const Address = "0x593E2464D8FaD21c83555E7D3CC2C3De1806F2A9"; // Taking Address from Remix 
+        window.web3 = await new Web3(window.ethereum);
+        window.contract = await new window.web3.eth.Contract(ABI, Address);
+        console.log("connected to contract")
+      }
+
+      const getSportsRating = async () => {
+        const data = await window.contract.methods.getSportAverageRating(sports).call();
+        var sportsRatingElement = document.getElementById('sports-rating');
+        sportsRatingElement.innerText = `We have a rating of ${data} in this sports training`;
+        console.log(`Sports Rating: ${data}`)
+      }
+      const setSportsRating = async () => {
+        console.log('invoked')
+        // Retrieve account value from the DOM
+    const account = '<%= address %>';
+
+    if (!account) {
+        console.error('address value element not found.');
+        return;
+    }
+        // const sports = "football"
+        var inputElement = document.getElementById("sports-user-rating-input");
+        var userRating = inputElement.value;
+        console.log('userRating',userRating)
+        const data = await window.contract.methods.setSportRating(sports,userRating).send({ from: account });
+        console.log('data:',data);
+        console.log(`Sports Rating: ${data}`)
+      }
+      document.addEventListener('DOMContentLoaded', async () => {
+            await connectContract(); // Connect to contract
+            await getSportsRating(); // Get sports rating
+        });
+    </script>
+  </body>
+
+  </html>
+
+  <%- include partials/footer.ejs %>

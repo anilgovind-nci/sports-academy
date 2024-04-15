@@ -1,0 +1,12 @@
+Web3.js Docs
+
+https://docs.web3js.org/guides/getting_started/metamask
+
+Metamsk
+https://docs.metamask.io/wallet/how-to/connect/detect-metamask/
+https://eips.ethereum.org/EIPS/eip-6963
+https://docs.metamask.io/wallet/reference/eth_getbalance/?Address=0x8d943f0a1c18914faec30ae8dc4b112d7c45ad80
+
+https://infrablok.com/how-to-implement-web3-login-with-metamask-using-nodejs-reactjs/
+https://www.toptal.com/ethereum/one-click-login-flows-a-metamask-tutorial#why-the-login-flow-works
+https://dappradar.com/

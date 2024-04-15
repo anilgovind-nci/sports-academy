@@ -1,0 +1,307 @@
+<%- include partials/headerwrk.ejs %>
+    <!DOCTYPE html>
+    <html data-bs-theme="light" lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>review</title>
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
+    </head>
+
+    <body>
+        <div class="modal fade" id="studentEnrollModal" tabindex="-1" aria-labelledby="enrollModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="enrollModalLabel">Enroll to Sports</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="enrollForm">
+                            <div class="mb-3">
+                                <label for="nameStudent" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="nameStudent" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contactStudent" class="form-label">Contact Number</label>
+                                <input type="text" class="form-control" id="contactStudent" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="enrollToSports()">Enroll</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section>
+            <div data-bss-parallax-bg="true"
+                style="height: 600px;background-image: url(assets/img/pexels-photo-209841.jpeg);background-position: center;background-size: cover;">
+                <div class="container h-100">
+                    <div class="row h-100" style="color: rgb(174,158,16);">
+                        <div class="col-md-6 text-center text-md-start d-flex d-sm-flex d-md-flex justify-content-center align-items-center justify-content-md-start align-items-md-center justify-content-xl-center"
+                            style="border-color: rgb(174, 158, 16);">
+                            <div style="max-width: 350px;">
+                                <h1 class="text-uppercase fw-bold" style="color: rgb(239,220,19);">Football&nbsp;</h1>
+                                <p class="my-3" style="color: rgb(239,221,18);">Lets train football with us</p>
+                                <a class="btn btn-primary btn-lg me-2" role="button"
+                                    style="background: rgb(173,159,16);border-style: none;color: rgb(239,221,18);"
+                                    onclick="openEnrollModal('Football')">Enroll</a>
+                                <a class="btn btn-outline-primary btn-lg" role="button"
+                                    onclick="unEnrollToSports('Football')">UnEnroll</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div data-bss-parallax-bg="true"
+                style="height: 600px;background-image: url(assets/img/photo-1644984785609-676ed703333e.jpg);background-position: center;background-size: cover;">
+                <div class="container h-100">
+                    <div class="row h-100">
+                        <div
+                            class="col-md-6 text-center text-md-start d-flex d-sm-flex d-md-flex justify-content-center align-items-center justify-content-md-start align-items-md-center justify-content-xl-center">
+                            <div style="max-width: 350px;">
+                                <h1 class="text-uppercase fw-bold" style="color: rgb(15,79,142);">CRICKET</h1>
+                                <p class="my-3" style="color: rgb(14,80,141);">Lets train the gentleman's game with us
+                                </p><a class="btn btn-primary btn-lg me-2" role="button"
+                                    style="background: rgb(14,80,141);border-style: none;"
+                                    onclick="openEnrollModal('Cricket')">Enroll</a><a
+                                    class="btn btn-outline-primary btn-lg" role="button"
+                                    onclick="unEnrollToSports('Cricket')">UnEnroll</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div data-bss-parallax-bg="true"
+                style="height: 600px;background-image: url(assets/img/pexels-photo-3662553.jpeg);background-position: center;background-size: cover;">
+                <div class="container h-100">
+                    <div class="row h-100" style="color: rgb(187,84,27);">
+                        <div class="col-md-6 text-center text-md-start d-flex d-sm-flex d-md-flex justify-content-center align-items-center justify-content-md-start align-items-md-center justify-content-xl-center"
+                            style="border-style: none;">
+                            <div style="max-width: 350px;">
+                                <h1 class="text-uppercase fw-bold" style="color: rgba(207,68,24,0.75);">RUGBY</h1>
+                                <p class="my-3" style="color: rgb(185,71,35);">Find your true spirit in with rugby
+                                    training</p><a class="btn btn-primary btn-lg me-2" role="button"
+                                    style="background: rgb(177,65,32);" onclick="openEnrollModal('Rugby')">Enroll</a><a
+                                    class="btn btn-outline-primary btn-lg" role="button"
+                                    onclick="unEnrollToSports('Rugby')">UnEnroll</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div data-bss-parallax-bg="true"
+                style="height: 600px;background-image: url(assets/img/photo-1494199505258-5f95387f933c.jpg);background-position: center;background-size: cover;">
+                <div class="container h-100">
+                    <div class="row h-100">
+                        <div
+                            class="col-md-6 text-center text-md-start d-flex d-sm-flex d-md-flex justify-content-center align-items-center justify-content-md-start align-items-md-center justify-content-xl-center">
+                            <div style="max-width: 350px;">
+                                <h1 class="text-uppercase fw-bold" style="color: rgb(14,52,89);">BASKETBALL</h1>
+                                <p class="my-3" style="color: rgb(14,52,89);">Train and become a falcon in the
+                                    basketball court</p><a class="btn btn-primary btn-lg me-2" role="button"
+                                    style="background: rgb(14,52,89);border-style: none;"
+                                    onclick="openEnrollModal('Basketball')">Enroll</a><a
+                                    class="btn btn-outline-primary btn-lg" role="button"
+                                    onclick="unEnrollToSports('Basketball')">UnEnroll</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/bs-init.js"></script>
+        <script>
+            const account = '<%= address %>';
+            let EnrollingSport = '';
+            let address = '';
+            // let name = '';
+            // let contact = '';
+
+
+            const connectContract = async () => {
+                const ABI = [
+                    {
+                        "inputs": [
+                            {
+                                "internalType": "string",
+                                "name": "_sport",
+                                "type": "string"
+                            },
+                            {
+                                "internalType": "address",
+                                "name": "_studentAddress",
+                                "type": "address"
+                            }
+                        ],
+                        "name": "removeEnrollment",
+                        "outputs": [
+                            {
+                                "internalType": "string",
+                                "name": "",
+                                "type": "string"
+                            }
+                        ],
+                        "stateMutability": "nonpayable",
+                        "type": "function"
+                    },
+                    {
+                        "inputs": [
+                            {
+                                "internalType": "string",
+                                "name": "_sport",
+                                "type": "string"
+                            },
+                            {
+                                "internalType": "address",
+                                "name": "_studentAddress",
+                                "type": "address"
+                            },
+                            {
+                                "internalType": "string",
+                                "name": "_name",
+                                "type": "string"
+                            },
+                            {
+                                "internalType": "string",
+                                "name": "_contactNumber",
+                                "type": "string"
+                            }
+                        ],
+                        "name": "setEnrollment",
+                        "outputs": [
+                            {
+                                "internalType": "string",
+                                "name": "",
+                                "type": "string"
+                            }
+                        ],
+                        "stateMutability": "nonpayable",
+                        "type": "function"
+                    },
+                    {
+                        "inputs": [
+                            {
+                                "internalType": "string",
+                                "name": "_sport",
+                                "type": "string"
+                            }
+                        ],
+                        "name": "getSportEnrollmentDetails",
+                        "outputs": [
+                            {
+                                "components": [
+                                    {
+                                        "internalType": "address",
+                                        "name": "studentAddress",
+                                        "type": "address"
+                                    },
+                                    {
+                                        "internalType": "string",
+                                        "name": "name",
+                                        "type": "string"
+                                    },
+                                    {
+                                        "internalType": "string",
+                                        "name": "contactNumber",
+                                        "type": "string"
+                                    },
+                                    {
+                                        "internalType": "bool",
+                                        "name": "enrolled",
+                                        "type": "bool"
+                                    }
+                                ],
+                                "internalType": "struct SportsAcademy.Student[]",
+                                "name": "",
+                                "type": "tuple[]"
+                            }
+                        ],
+                        "stateMutability": "view",
+                        "type": "function"
+                    },
+                    {
+                        "inputs": [
+                            {
+                                "internalType": "string",
+                                "name": "_sport",
+                                "type": "string"
+                            }
+                        ],
+                        "name": "getSportTotalEnrollment",
+                        "outputs": [
+                            {
+                                "internalType": "uint256",
+                                "name": "",
+                                "type": "uint256"
+                            }
+                        ],
+                        "stateMutability": "view",
+                        "type": "function"
+                    },
+                    {
+                        "inputs": [
+                            {
+                                "internalType": "string",
+                                "name": "",
+                                "type": "string"
+                            }
+                        ],
+                        "name": "sports",
+                        "outputs": [
+                            {
+                                "internalType": "uint256",
+                                "name": "nextAvailableSlot",
+                                "type": "uint256"
+                            }
+                        ],
+                        "stateMutability": "view",
+                        "type": "function"
+                    }
+                ]
+
+                const Address = "0x23082BA6d2C2dbee1314C22760AbB1011E658776"; // Taking Address from Remix 
+                window.web3 = await new Web3(window.ethereum);
+                window.contract = await new window.web3.eth.Contract(ABI, Address);
+                console.log("connected to contract")
+            }
+            function openEnrollModal(sport) {
+                EnrollingSport = sport;
+                $("#studentEnrollModal").modal('show');
+            }
+
+            async function enrollToSports() {
+                name = $("#nameStudent").val();
+                contact = $("#contactStudent").val();
+                studentAddress = account;
+                console.log("the account is:", studentAddress);
+                if (EnrollingSport) {
+                    const data = await window.contract.methods.setEnrollment(EnrollingSport, studentAddress, name, contact).send({ from: account });
+                    console.log(data)
+                }
+                $("#studentEnrollModal").modal('hide');
+            }
+            async function unEnrollToSports(sport) {
+                const data = await window.contract.methods.removeEnrollment(sport, account).send({ from: account });
+            }
+            document.addEventListener('DOMContentLoaded', async () => {
+                await connectContract(); // Connect to contract
+            });
+        </script>
+
+    </body>
+
+    </html>

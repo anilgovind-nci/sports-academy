@@ -1,0 +1,231 @@
+<%- include partials/headerwrk.ejs %>
+
+    <html data-bs-theme="light" lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+        <title>Adminpage</title>
+        <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
+    </head>
+
+    <body>
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-xxl-9">
+                <div class="card shadow">
+                    <div
+                        class="card-header d-flex flex-wrap justify-content-center align-items-center justify-content-sm-between gap-3">
+                        <h5 class="display-6 text-nowrap text-capitalize mb-0">All Students</h5>
+                        <div class="input-group input-group-sm w-auto"></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Contact</th>
+                                        <th>Sport</th>
+                                        <th>Account</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-truncate" style="max-width: 200px;"></td>
+                                        <td class="text-truncate" style="max-width: 200px;"></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        const connectContract = async () => {
+            const ABI = [
+                {
+                    "inputs": [
+                        {
+                            "internalType": "string",
+                            "name": "_sport",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "_studentAddress",
+                            "type": "address"
+                        }
+                    ],
+                    "name": "removeEnrollment",
+                    "outputs": [
+                        {
+                            "internalType": "string",
+                            "name": "",
+                            "type": "string"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "string",
+                            "name": "_sport",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "_studentAddress",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "_name",
+                            "type": "string"
+                        },
+                        {
+                            "internalType": "string",
+                            "name": "_contactNumber",
+                            "type": "string"
+                        }
+                    ],
+                    "name": "setEnrollment",
+                    "outputs": [
+                        {
+                            "internalType": "string",
+                            "name": "",
+                            "type": "string"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "string",
+                            "name": "_sport",
+                            "type": "string"
+                        }
+                    ],
+                    "name": "getSportEnrollmentDetails",
+                    "outputs": [
+                        {
+                            "components": [
+                                {
+                                    "internalType": "address",
+                                    "name": "studentAddress",
+                                    "type": "address"
+                                },
+                                {
+                                    "internalType": "string",
+                                    "name": "name",
+                                    "type": "string"
+                                },
+                                {
+                                    "internalType": "string",
+                                    "name": "contactNumber",
+                                    "type": "string"
+                                },
+                                {
+                                    "internalType": "bool",
+                                    "name": "enrolled",
+                                    "type": "bool"
+                                }
+                            ],
+                            "internalType": "struct SportsAcademy.Student[]",
+                            "name": "",
+                            "type": "tuple[]"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "string",
+                            "name": "_sport",
+                            "type": "string"
+                        }
+                    ],
+                    "name": "getSportTotalEnrollment",
+                    "outputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "string",
+                            "name": "",
+                            "type": "string"
+                        }
+                    ],
+                    "name": "sports",
+                    "outputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "nextAvailableSlot",
+                            "type": "uint256"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function"
+                }
+            ]
+
+            const Address = "0x23082BA6d2C2dbee1314C22760AbB1011E658776"; // Taking Address from Remix 
+            window.web3 = await new Web3(window.ethereum);
+            window.contract = await new window.web3.eth.Contract(ABI, Address);
+            console.log("connected to contract")
+        }
+        function populateTable(students) {
+            const tbody = document.querySelector('.table-responsive table tbody');
+            tbody.innerHTML = '';
+            ['basketballEnrollments', 'cricketEnrollments', 'footballEnrollments', 'rugbyEnrollments'].forEach(sport => {
+                students[sport].forEach(student => {
+                    const row = `
+                    <tr>
+                        <td class="text-truncate" style="max-width: 200px;">${student.name}</td>
+                        <td class="text-truncate" style="max-width: 200px;">${student.contactNumber}</td>
+                        <td>${sport.replace('Enrollments', '')}</td>
+                        <td>${student.studentAddress}</td>
+                    </tr>
+                `;
+                    tbody.innerHTML += row;
+                });
+            });
+        }
+        async function getStudentDetails() {
+            const basketballEnrollments = await window.contract.methods.getSportEnrollmentDetails("Basketball").call();
+            const cricketEnrollments = await window.contract.methods.getSportEnrollmentDetails("Cricket").call();
+            const footballEnrollments = await window.contract.methods.getSportEnrollmentDetails("Football").call();
+            const rugbyEnrollments = await window.contract.methods.getSportEnrollmentDetails("Rugby").call();
+            const students = {
+                basketballEnrollments,
+                cricketEnrollments,
+                footballEnrollments,
+                rugbyEnrollments
+            }
+            populateTable(students);        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await connectContract(); // Connect to contract
+            await getStudentDetails(); // Get student details
+        });
+    </script>
+
+    </html>

@@ -1,0 +1,73 @@
+<%- include partials/headerwrk.ejs %>
+
+    <!DOCTYPE html>
+    <html data-bs-theme="light" lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>Adminpage</title>
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/login-form-styles.css">
+        <link rel="stylesheet" href="assets/css/login-form.css">
+        <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
+    </head>
+
+    <body>
+        <div class="container full-height">
+            <div class="row flex center v-center full-height">
+                <div class="col-8 col-sm-4">
+                    <div class="form-box">
+                        <form>
+                            <fieldset>
+                                <legend>Connect To Metamask</legend><img id="avatar" class="avatar round"
+                                    src="assets/img/metamask.png"><button class="btn btn-primary d-block w-100"
+                                    type="button" onclick="login()">Connect</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    </body>
+
+    <script>
+        async function login() {
+            // Check if Web3 is injected by MetaMask
+            if (typeof window.ethereum === 'undefined' || !window.ethereum.isMetaMask) {
+                alert('Please install MetaMask extension to use this feature.');
+                return;
+            }
+
+            try {
+                // Create a Web3 instance using MetaMask provider
+                const web3 = new Web3(window.ethereum);
+
+                // Request account access
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const accounts = await web3.eth.getAccounts();
+
+                const address = accounts[0]; // Get the user's Ethereum address
+
+                // Send the address to the server
+                fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ address })
+                });
+                // alert('Logged in with address: ' + address);
+                // const balance = await web3.eth.getBalance(address);
+                // alert('Your ETH balance: ' + web3.utils.fromWei(balance, 'ether') + ' ETH');
+                window.location.href = '/sports-enroll';
+            } catch (error) {
+                console.error(error);
+                alert('Failed to login with MetaMask. Please try again.');
+            }
+        }
+    </script>
+
+    </html>
