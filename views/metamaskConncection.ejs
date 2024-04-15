@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-        <title>Adminpage</title>
+        <title>MetamaskPage</title>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/login-form-styles.css">
         <link rel="stylesheet" href="assets/css/login-form.css">
@@ -52,16 +52,13 @@
                 const address = accounts[0]; // Get the user's Ethereum address
 
                 // Send the address to the server
-                fetch('/login', {
+                await fetch('/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({ address })
                 });
-                // alert('Logged in with address: ' + address);
-                // const balance = await web3.eth.getBalance(address);
-                // alert('Your ETH balance: ' + web3.utils.fromWei(balance, 'ether') + ' ETH');
                 window.location.href = '/sports-enroll';
             } catch (error) {
                 console.error(error);

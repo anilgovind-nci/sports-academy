@@ -24,7 +24,7 @@ router.use(getAddressFromSession);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('metamaskConncection', { title: 'Premium Spors Academy', name:null });
+  res.render('metamaskConncection', { title: 'Prime Sports Academy', name:null });
 });
 
 router.post('/login', function(req, res, next) {
@@ -33,6 +33,7 @@ router.post('/login', function(req, res, next) {
       if (!address) {
           return res.status(400).json({ error: 'Address not provided' });
       }
+      console.log("received address:",address)
       req.session.address = address;
       return res.sendStatus(200); // Send a response to acknowledge the successful login
   } catch (error) {
@@ -41,53 +42,28 @@ router.post('/login', function(req, res, next) {
   }
 });
 
-router.get('/page1', function(req, res, next) {
-  res.render('page1', { title: 'Premium Spors Academy', name:null, address: res.locals.address  });
-});
-
-router.get('/page2', function(req, res, next) {
-  res.render('page2', { title: 'Premium Spors Academy', name:null, address: res.locals.address  });
-});
-
-router.get('/page3', function(req, res, next) {
-  res.render('page3', { title: 'Premium Spors Academy', name:null, address: res.locals.address  });
-});
-
-router.get('/page4', function(req, res, next) {
-  res.render('page4', { title: 'Premium Spors Academy', name:null,address: res.locals.address  });
-});
-
-
-router.get('/page5', function(req, res, next) {
-  res.render('page5', { title: 'Premium Spors Academy', name:null, address: res.locals.address  });
-});
-
 router.get('/coin', function(req, res, next) {
-  res.render('coin', { title: 'Premium Spors Academy', name:null, address: res.locals.address  });
+  res.render('coin', { title: 'Prime Sports Academy', name:null, address: res.locals.address  });
 });
 
 router.get('/review', function(req, res, next) {
-  res.render('review', { title: 'Premium Spors Academy', name:null, address: res.locals.address  });
+  res.render('review', { title: 'Prime Sports Academy', name:null, address: res.locals.address  });
 });
 
 router.get('/metamask', function(req, res, next) {
-  res.render('metamaskConncection', { title: 'Premium Spors Academy', name:null  });
+  res.render('metamaskConncection', { title: 'Prime Sports Academy', name:null  });
 });
 
 router.get('/student-review', function(req, res, next) {
-  res.render('studentReview', { title: 'Premium Spors Academy', name:null  });
+  res.render('studentReview', { title: 'Prime Sports Academy', name:null  });
 });
 
 router.get('/sports-enroll', function(req, res, next) {
-  res.render('sportsEnroll', { title: 'Premium Spors Academy', name:null  });
+  res.render('sportsEnroll', { title: 'Prime Sports Academy', name:null  });
 });
 
-router.get('/admin', function(req, res, next) {
-  res.render('adminView', { title: 'Premium Spors Academy', name:null  });
+router.get('/students', function(req, res, next) {
+  res.render('studentsView', { title: 'Prime Sports Academy', name:null  });
 });
-// router.get('/page7', function(req, res, next) {
-//   res.render('page7', { title: 'Premium Spors Academy', name:null });
-// });
-
 
 module.exports = router;
